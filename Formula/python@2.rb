@@ -12,6 +12,11 @@ class PythonAT2 < Formula
   revision 1
   head "https://github.com/python/cpython.git", branch: "2.7"
 
+  bottle do
+    root_url "https://github.com/yogieric/homebrew-foobar/releases/download/python@2-2.7.17_1"
+    sha256 "e9b9ef61f9ecc9e86b3600e009180c2b37c9295f764079d9157a8f867167fe4e" => :catalina
+  end
+
   depends_on "pkg-config" => :build
   depends_on "gdbm"
   depends_on "openssl@1.1"
