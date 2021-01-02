@@ -183,14 +183,16 @@ class PythonAT2 < Formula
     if OS.mac?
       ["Headers", "Python", "Resources"].each { |f| rm(prefix/"Frameworks/Python.framework/#{f}") }
       rm prefix/"Frameworks/Python.framework/Versions/Current"
+    end
 
-      # Remove the site-packages that Python created in its Cellar.
-      site_packages_cellar.rmtree
+    # Remove the site-packages that Python created in its Cellar.
+    site_packages_cellar.rmtree
 
-      (libexec/"setuptools").install resource("setuptools")
-      (libexec/"pip").install resource("pip")
-      (libexec/"wheel").install resource("wheel")
+    (libexec/"setuptools").install resource("setuptools")
+    (libexec/"pip").install resource("pip")
+    (libexec/"wheel").install resource("wheel")
 
+    if OS.mac?
       {
         "idle"          => "idle2",
         "pydoc"         => "pydoc2",
