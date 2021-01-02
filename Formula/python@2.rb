@@ -7,9 +7,9 @@
 class PythonAT2 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tar.xz"
-  sha256 "4d43f033cdbd0aa7b7023c81b0e986fd11e653b5248dac9144d508f11812ba41"
-  revision 1
+  url "https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tar.xz"
+  sha256 "b62c0e7937551d0cc02b8fd5cb0f544f9405bafc9a54d3808ed4594812edef43"
+  revision 2
   head "https://github.com/python/cpython.git", branch: "2.7"
 
   bottle do
@@ -22,12 +22,12 @@ class PythonAT2 < Formula
   depends_on "openssl@1.1"
   depends_on "readline"
   depends_on "sqlite"
-  unless OS.mac?
-    depends_on "linuxbrew/xorg/xorg"
-    depends_on "bzip2"
-    depends_on "ncurses"
-    depends_on "zlib"
-  end
+
+  uses_from_macos "bzip2"
+  uses_from_macos "libffi"
+  uses_from_macos "ncurses"
+  uses_from_macos "unzip"
+  uses_from_macos "zlib"
 
   resource "setuptools" do
     url "https://files.pythonhosted.org/packages/f4/d5/a6c19dcbcbc267aca376558797f036d9bcdff344c9f785fe7d0fe9a5f2a7/setuptools-41.4.0.zip"
@@ -174,7 +174,7 @@ class PythonAT2 < Formula
 
     # Remove all of the unversioned binaries
     %w[2to3 idle pydoc python python-config pythonw smtpd.py].each do |f|
-      rm bin/f
+      (bin/f).exist? && (bin/f).delete
     end
 
     # A fix, because python and python@2 both want to install Python.framework
@@ -198,7 +198,9 @@ class PythonAT2 < Formula
       "python"        => "python2",
       "python-config" => "python2-config",
     }.each do |unversioned_name, versioned_name|
-      (libexec/"bin").install_symlink (bin/versioned_name).realpath => unversioned_name
+      if (libexec/"bin"/unversioned_name).exist?
+        (libexec/"bin").install_symlink (bin/versioned_name).realpath => unversioned_name
+      end
     end
   end
 
