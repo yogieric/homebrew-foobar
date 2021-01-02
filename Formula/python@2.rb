@@ -7,7 +7,7 @@
 class PythonAT2 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tar.xz"
+  url "https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tar.xz"
   sha256 "4d43f033cdbd0aa7b7023c81b0e986fd11e653b5248dac9144d508f11812ba41"
   revision 2
   head "https://github.com/python/cpython.git", branch: "2.7"
