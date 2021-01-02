@@ -173,7 +173,7 @@ class PythonAT2 < Formula
     (lib/"pkgconfig").install_symlink Dir[frameworks/"Python.framework/Versions/Current/lib/pkgconfig/*"]
 
     # Remove all of the unversioned binaries
-    %w[2to3 idle pydoc python python-config pythonw smtpd.py].each do |f|
+    %w[2to3 idle pydoc python python-config smtpd.py].each do |f|
       rm bin/f
     end
 
