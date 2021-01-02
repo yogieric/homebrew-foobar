@@ -173,8 +173,10 @@ class PythonAT2 < Formula
     (lib/"pkgconfig").install_symlink Dir[frameworks/"Python.framework/Versions/Current/lib/pkgconfig/*"]
 
     # Remove all of the unversioned binaries
-    %w[2to3 idle pydoc python python-config smtpd.py].each do |f|
-      rm bin/f
+    %w[2to3 idle pydoc python python-config pythonw smtpd.py].each do |f|
+      if (bin/f).exist?
+        rm bin/f
+      end
     end
 
     # A fix, because python and python@2 both want to install Python.framework
@@ -192,13 +194,13 @@ class PythonAT2 < Formula
     (libexec/"pip").install resource("pip")
     (libexec/"wheel").install resource("wheel")
 
-    if OS.mac?
-      {
-        "idle"          => "idle2",
-        "pydoc"         => "pydoc2",
-        "python"        => "python2",
-        "python-config" => "python2-config",
-      }.each do |unversioned_name, versioned_name|
+    {
+      "idle"          => "idle2",
+      "pydoc"         => "pydoc2",
+      "python"        => "python2",
+      "python-config" => "python2-config",
+    }.each do |unversioned_name, versioned_name|
+      if (libexec/"bin"/unversioned_name).exist?
         (libexec/"bin").install_symlink (bin/versioned_name).realpath => unversioned_name
       end
     end
