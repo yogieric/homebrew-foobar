@@ -174,9 +174,7 @@ class PythonAT2 < Formula
 
     # Remove all of the unversioned binaries
     %w[2to3 idle pydoc python python-config pythonw smtpd.py].each do |f|
-      if (bin/f).exist?
-        rm bin/f
-      end
+      (bin/f).exist? && (bin/f).delete
     end
 
     # A fix, because python and python@2 both want to install Python.framework
